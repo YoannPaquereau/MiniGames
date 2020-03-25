@@ -2,33 +2,43 @@ import React, {Component} from 'react';
 import style from './navbar.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
+import {BrowserRouter as Router, Link, Switch, Route} from "react-router-dom";
+import Homepage from "../../Homepage";
+import Login from "../../account/Login";
+import Register from "../../account/Register";
 
 class Navbar extends Component {
 
     navbarToggle = () => {
-        console.log('ok');
         document.getElementById('list').classList.toggle(style.active);
     };
 
     render() {
         return (
-            <div className={style.navbar}>
-                <span className={style.toggle} id="toggle" onClick={this.navbarToggle}>
-                    <FontAwesomeIcon icon={faBars} />
-                </span>
-                <a href='#' className={style.logo}>Logo</a>
-                <ul className={style.list} id='list'>
-                    <li>
-                        <a href='#' className={style.links}>Accueil</a>
-                    </li>
-                    <li>
-                        <a href='#' className={style.links}>Connexion</a>
-                    </li>
-                    <li>
-                        <a href='#' className={style.links}>Inscription</a>
-                    </li>
-                </ul>
-            </div>
+            <Router>
+                <div className={style.navbar}>
+                    <span className={style.toggle} id="toggle" onClick={this.navbarToggle}>
+                        <FontAwesomeIcon icon={faBars} />
+                    </span>
+                    <a href='#' className={style.logo}>Logo</a>
+                    <ul className={style.list} id='list'>
+                        <li>
+                            <Link to="/" className={style.links}>Accueil</Link>
+                        </li>
+                        <li>
+                            <Link to="/login" className={style.links}>Connexion</Link>
+                        </li>
+                        <li>
+                            <Link to="/register" className={style.links}>Inscription</Link>
+                        </li>
+                    </ul>
+                </div>
+                <Switch>
+                    <Route exact path='/' component={Homepage}/>
+                    <Route exact path='/login' component={Login}/>
+                    <Route exact path='/register' component={Register}/>
+                </Switch>
+            </Router>
         );
     }
 }
