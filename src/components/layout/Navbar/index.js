@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import style from './navbar.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faGamepad } from "@fortawesome/free-solid-svg-icons";
 import {BrowserRouter as Router, Link, Switch, Route} from "react-router-dom";
 import Homepage from "../../Homepage";
 import Login from "../../account/Login";
@@ -20,7 +20,7 @@ class Navbar extends Component {
                     <span className={style.toggle} id="toggle" onClick={this.navbarToggle}>
                         <FontAwesomeIcon icon={faBars} />
                     </span>
-                    <a href='#' className={style.logo}>Logo</a>
+                    <Link to="/" className={style.logo}><FontAwesomeIcon icon={faGamepad} /></Link>
                     <ul className={style.list} id='list'>
                         <li>
                             <Link to="/" className={style.links}>Accueil</Link>
