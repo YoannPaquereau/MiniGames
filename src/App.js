@@ -35,7 +35,7 @@ if (localStorage.jwtToken) {
 function App() {
   return (
     <Provider store={store}>
-      <Navbar auth={state.isAuthentificated} />
+      <Navbar />
     </Provider>
   );
 }

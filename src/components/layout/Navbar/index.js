@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import style from './navbar.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faGamepad } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faGamepad, faHome, faUser, faSignOutAlt, faSignInAlt, faUserPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 import {BrowserRouter as Router, Link, Switch, Route} from "react-router-dom";
 import Homepage from "../../Homepage";
 import Login from "../../account/Login";
 import Register from "../../account/Register";
+import Dashboard from '../../account/Dashboard';
+
 
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -21,13 +23,13 @@ class Navbar extends Component {
     notAuth = (
         <ul className={style.list} id='list'>
             <li>
-                <Link to="/" className={style.links}>Accueil</Link>
+                <Link to="/" className={style.links}><FontAwesomeIcon icon={faHome} /> Accueil</Link>
             </li>
             <li>
-                <Link to="/login" className={style.links}>Connexion</Link>
+                <Link to="/login" className={style.links}><FontAwesomeIcon icon={faSignInAlt} /> Connexion</Link>
             </li>
             <li>
-                <Link to="/register" className={style.links}>Inscription</Link>
+                <Link to="/register" className={style.links}><FontAwesomeIcon icon={faUserPlus} /> Inscription</Link>
             </li>
         </ul>
     );
@@ -35,16 +37,19 @@ class Navbar extends Component {
     isAuth = (
         <ul className={style.list} id='list'>
             <li>
-                <Link to="/" className={style.links}>Accueil</Link>
+                <Link to="/" className={style.links}><FontAwesomeIcon icon={faHome} /> Accueil</Link>
             </li>
             <li>
-                <Link to="#" className={style.links}>Mon compte</Link>
+                <Link to="/account" className={style.links}><FontAwesomeIcon icon={faUser} /> Mon compte</Link>
             </li>
             <li>
-                <Link to="#" className={style.links}>Jeux</Link>
+                <Link to="#" className={style.links}><FontAwesomeIcon icon={faGamepad} /> Jeux</Link>
             </li>
             <li>
-                <button className={style.links} onClick={this.logout}>Déconnexion</button>
+            <button className={style.links}><FontAwesomeIcon icon={faSearch} /></button>
+            </li>
+            <li>
+                <button className={style.links} onClick={this.logout}><FontAwesomeIcon icon={faSignOutAlt} /> Déconnexion</button>
             </li>
         </ul>
     );
@@ -82,13 +87,14 @@ class Navbar extends Component {
                     <span className={style.toggle} id="toggle" onClick={this.navbarToggle}>
                         <FontAwesomeIcon icon={faBars} />
                     </span>
-                    <Link to="/" className={style.logo}><FontAwesomeIcon icon={faGamepad} /></Link>
+                    <Link to="/" className={style.logo}>Logo</Link>
                     {this.list}
                 </div>
                 <Switch>
                     <Route exact path='/' component={Homepage}/>
                     <Route exact path='/login' component={Login}/>
                     <Route exact path='/register' component={Register}/>
+                    <Route exact path='/account' component={Dashboard}/>
                 </Switch>
             </Router>
         );
