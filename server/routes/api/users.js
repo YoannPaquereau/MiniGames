@@ -49,6 +49,23 @@ router.post("/register", (req, res) => {
     });
 });
 
+// @route POST api/users/list
+// @desc Username and return Users list
+// @access Public
+
+    router.post('/listUser', (req, res) => {
+        const searchUser = req.body.username;
+        User.find(
+            { username: { $regex: searchUser } },
+            { friends: 0, email: 0, password: 0, date: 0, __v: 0 }
+            )
+            .then(user => {
+                res.json(user);
+            })
+            .catch(err => console.log(err))
+        ;
+    });
+
 
 // @route POST api/users/login
 // @desc Login user and return JWT token
