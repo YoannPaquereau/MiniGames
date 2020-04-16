@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import style from './navbar.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faGamepad, faHome, faUser, faSignOutAlt, faSignInAlt, faUserPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faGamepad, faHome, faUser, faSignOutAlt, faSignInAlt, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import {BrowserRouter as Router, Link, Switch, Route} from "react-router-dom";
 import Homepage from "../../Homepage";
 import Login from "../../account/Login";
@@ -44,9 +44,6 @@ class Navbar extends Component {
             </li>
             <li>
                 <Link to="#" className={style.links}><FontAwesomeIcon icon={faGamepad} /> Jeux</Link>
-            </li>
-            <li>
-            <button className={style.links}><FontAwesomeIcon icon={faSearch} /></button>
             </li>
             <li>
                 <button className={style.links} onClick={this.logout}><FontAwesomeIcon icon={faSignOutAlt} /> Déconnexion</button>

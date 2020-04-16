@@ -1,0 +1,58 @@
+.parent {
+    position: fixed;
+    bottom: 30px;
+    right: 20px;
+    width: 230px;
+
+    .list {
+        background-color: lightgrey;
+        display: none;
+
+        > .friendsList {
+            > h3 {
+                text-align: center;
+                padding-top: 10px;
+            }
+
+            > .toolbar {
+                > form {
+                    > input {
+                        border-radius: 25px;
+                        outline: none;
+                        text-align: center;
+                    }
+
+                    > button {
+                        background: none;
+                        color: inherit;
+                        border: none;
+                        padding: 0;
+                        font: inherit;
+                        cursor: pointer;
+                        outline: inherit;
+                    } 
+
+                    > span {
+                        float: right;
+                    }
+                }
+
+            }
+        }
+    }
+
+    > .show {        
+        > input {
+            display: none;
+        }
+
+        > span {
+            display: table;
+            border-radius: 25px;
+            background-color: lightgrey;
+            padding: 15px;
+            margin: 0 auto;
+        }
+    }
+
+}
