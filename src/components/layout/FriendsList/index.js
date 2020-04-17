@@ -5,18 +5,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class FriendsList extends Component {
 
-    constructor(props) {
-        super(props)
-        var display = <FontAwesomeIcon icon={faUserFriends} />;
+    constructor() {
+        super();
+        this.state = {
+            show: false
+        };
     }
 
     checked = event => {
 
         if (event.target.checked) {
             document.getElementById('friendsList').style.display = 'block';
+            this.setState({ show: true })
         }
         else {
             document.getElementById('friendsList').style.display = 'none';
+            this.setState({ show: false })
         }
     }
 
@@ -37,7 +41,9 @@ class FriendsList extends Component {
                     </div>
                     <label className={style.show}>
                         <input type='checkbox' onChange={this.checked} />
-                        <span className={style.icon}><FontAwesomeIcon icon={faUserFriends} /></span>
+                        <span className={style.icon} id='icon'>
+                            <FontAwesomeIcon icon={ this.state.show ? faTimesCircle : faUserFriends} />
+                        </span>
                     </label>
                 </div>
         )
