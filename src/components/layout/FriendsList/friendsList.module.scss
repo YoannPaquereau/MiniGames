@@ -34,6 +34,7 @@
 
                     > span {
                         float: right;
+                        margin-right: 5px;
                     }
                 }
 
@@ -41,16 +42,18 @@
         }
     }
 
-    > .show {        
+    > .show {
+        display:table;
+        margin:auto;
+        
         > input {
             display: none;
         }
 
-        > span {
-            display: table;
+        > .icon {
+            display: table-cell;
             border-radius: 25px;
             background-color: lightgrey;
-            margin: 0 auto;
             font-size: 16px;
             height: 50px;
             width: 50px;
