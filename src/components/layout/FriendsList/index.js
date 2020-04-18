@@ -24,6 +24,11 @@ class FriendsList extends Component {
         }
     }
 
+    showHideModal = () => {
+        let modal = document.getElementById('modal')
+        modal.classList.toggle(style.showModal);
+    }
+
     render() {
         return (
                 <div className={style.parent}>
@@ -34,17 +39,33 @@ class FriendsList extends Component {
                                 <form>
                                     <input type='text' className={style.searchInput} placeholder='Rechercher un ami' />
                                     <button><FontAwesomeIcon icon={faSearch} /></button>
-                                    <span className={style.newFriend}><FontAwesomeIcon icon={faPlusCircle} /></span>
+                                    <span className={style.newFriend} onClick={this.showHideModal}><FontAwesomeIcon icon={faPlusCircle} /></span>
                                 </form>
                             </div>
                         </div>
                     </div>
+
                     <label className={style.show}>
                         <input type='checkbox' onChange={this.checked} />
                         <span className={style.icon} id='icon'>
                             <FontAwesomeIcon icon={ this.state.show ? faTimesCircle : faUserFriends} />
                         </span>
                     </label>
+
+                    <div className={style.modal} id='modal'>
+
+                        <div className={style.modalContent}>
+                            <span className={style.close} onClick={this.showHideModal}><FontAwesomeIcon icon={faTimesCircle} /></span>
+                            <h3>Ajouter un ami</h3>
+
+                            <form>
+                                <input type='text' className={style.searchInput} placeholder='Rechercher un ami' />
+                                <button><FontAwesomeIcon icon={faSearch} /></button>
+                            </form>
+
+                        </div>
+
+                    </div>
                 </div>
         )
     }
