@@ -7,7 +7,6 @@ import store from './components/store';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './components/utils/setAuthToken';
 import { setCurrentUser, logoutUser } from './components/actions/authActions';
-import FriendsList from './components/layout/FriendsList';
 
 const state = {
   isAuthentificated: false
@@ -37,7 +36,6 @@ function App() {
   return (
     <Provider store={store}>
       <Navbar />
-      <FriendsList />
     </Provider>
   );
 }

@@ -13,6 +13,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 
+import FriendsList from '../FriendsList';
 
 class Navbar extends Component {
 
@@ -87,6 +88,9 @@ class Navbar extends Component {
                     <Link to="/" className={style.logo}>Logo</Link>
                     {this.list}
                 </div>
+                { this.props.auth.isAuthenticated &&
+                    <FriendsList />
+                }
                 <Switch>
                     <Route exact path='/' component={Homepage}/>
                     <Route exact path='/login' component={Login}/>
