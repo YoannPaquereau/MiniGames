@@ -9,13 +9,14 @@ import { connect } from "react-redux";
 
 class FriendsList extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             show: false,
             searchFriend: '',
             listSearchFriend: []
         };
+        this.user = this.props.auth.user;
     }
 
     checked = event => {
@@ -50,6 +51,17 @@ class FriendsList extends Component {
         this.setState({ [event.target.id]: event.target.value });
     }
 
+    addFriendRequest = idFriend => {
+        this.props.addFriend(this.user.id, idFriend)
+            .then(res => {
+                    let el = document.getElementById('addFriendIcon-'+idFriend);
+                    el.removeAttribute('onClick');
+                    el.classList.remove(style.addFriendIcon);
+                    el.classList.add(style.successSendRequest);
+                    el.innerHTML = '✔'  ;
+            })
+    } 
+    
     render() {
         return (
                 <div className={style.parent}>
@@ -93,11 +105,11 @@ class FriendsList extends Component {
                                 <button><FontAwesomeIcon icon={faSearch} /></button>
                             </form>
                             <ul id='searchFriendList'>
-                                {this.state.listSearchFriend.map(user => (
-                                    <div className={style.friendListItems} key={user._id}>
+                                {this.state.listSearchFriend.map(item => (
+                                    <div className={style.friendListItems} key={item._id}>
                                         <li>
-                                            <span className={style.usernameFriend}>{user.username}</span>
-                                            <span className={style.addFriendIcon}><FontAwesomeIcon icon={faUserPlus} /></span>
+                                            <span className={style.usernameFriend}>{item.username}</span>
+                                            <span className={style.addFriendIcon} id={"addFriendIcon-" + item._id} onClick={() => this.addFriendRequest(item._id)}><FontAwesomeIcon icon={faUserPlus} /></span>
                                         </li>
                                     </div>
                                 ))}

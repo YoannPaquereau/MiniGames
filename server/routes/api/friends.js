@@ -30,7 +30,6 @@ router.post('/add', (req, res) => {
 
 router.post('/listUser', (req, res) => {
     const searchUser = req.body.username;
-    console.log(searchUser);
     User.find(
         { username: { $regex: searchUser } },
         { friends: 0, email: 0, password: 0, date: 0, __v: 0, friendsRequest: 0 }
