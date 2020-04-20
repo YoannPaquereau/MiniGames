@@ -23,6 +23,11 @@ const UserSchema = new Schema({
         required: false
     },
 
+    friendsRequest: {
+        type: Array,
+        required: false
+    },
+
     date: {
         type: Date,
         default: Date.now

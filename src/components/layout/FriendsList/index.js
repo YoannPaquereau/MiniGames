@@ -2,13 +2,19 @@ import React, { Component } from 'react'
 import style from './friendsList.module.scss'
 import { faUserFriends, faPlusCircle, faSearch, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { addFriend, listUser } from "../../actions/friendActions"
+
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 class FriendsList extends Component {
 
     constructor() {
         super();
         this.state = {
-            show: false
+            show: false,
+            searchFriend: '',
+            listSearchFriend: []
         };
     }
 
@@ -27,6 +33,18 @@ class FriendsList extends Component {
     showHideModal = () => {
         let modal = document.getElementById('modal')
         modal.classList.toggle(style.showModal);
+    }
+
+    handleKeyUp = () => {
+        this.props.listUser(this.state.searchFriend)
+            .then(res => {
+                const users = res;
+                this.setState({listSearchFriend: users});
+            })
+    }
+
+    onChange = event => {
+        this.setState({ [event.target.id]: event.target.value });
     }
 
     render() {
@@ -59,10 +77,27 @@ class FriendsList extends Component {
                             <h3>Ajouter un ami</h3>
 
                             <form>
-                                <input type='text' className={style.searchInput} placeholder='Rechercher un ami' />
+                                <input 
+                                    type='text'
+                                    className={style.searchInput}
+                                    placeholder='Rechercher un ami'
+                                    onKeyUp={this.handleKeyUp}
+                                    value={this.state.searchFriend}
+                                    onChange={this.onChange}
+                                    id='searchFriend'
+                                    autoComplete='off'
+                                />
                                 <button><FontAwesomeIcon icon={faSearch} /></button>
                             </form>
-
+                            <ul>
+                                {this.state.listSearchFriend.map(user => (
+                                    <div key={user._id}>
+                                        <li>
+                                            <span className={style.usernameFriend}>{user.username}</span>
+                                        </li>
+                                    </div>
+                                ))}
+                            </ul>
                         </div>
 
                     </div>
@@ -71,4 +106,17 @@ class FriendsList extends Component {
     }
 }
 
-export default FriendsList
+FriendsList.propTypes = {
+    addFriend: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    listUser: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+    auth: state.auth,
+});
+
+export default connect(
+    mapStateToProps,
+    { addFriend, listUser }
+)(FriendsList);
