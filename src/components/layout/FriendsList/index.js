@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import style from './friendsList.module.scss'
-import { faUserFriends, faPlusCircle, faSearch, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { faUserFriends, faPlusCircle, faSearch, faTimesCircle, faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { addFriend, listUser } from "../../actions/friendActions"
 
@@ -36,11 +36,14 @@ class FriendsList extends Component {
     }
 
     handleKeyUp = () => {
-        this.props.listUser(this.state.searchFriend)
+        if (this.state.searchFriend.length > 2) {
+            this.props.listUser(this.state.searchFriend)
             .then(res => {
                 const users = res;
                 this.setState({listSearchFriend: users});
             })
+            document.getElementById('searchFriendList').style.display = 'block';
+        }
     }
 
     onChange = event => {
@@ -89,11 +92,12 @@ class FriendsList extends Component {
                                 />
                                 <button><FontAwesomeIcon icon={faSearch} /></button>
                             </form>
-                            <ul>
+                            <ul id='searchFriendList'>
                                 {this.state.listSearchFriend.map(user => (
-                                    <div key={user._id}>
+                                    <div className={style.friendListItems} key={user._id}>
                                         <li>
                                             <span className={style.usernameFriend}>{user.username}</span>
+                                            <span className={style.addFriendIcon}><FontAwesomeIcon icon={faUserPlus} /></span>
                                         </li>
                                     </div>
                                 ))}
