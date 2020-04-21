@@ -38,7 +38,13 @@ class FriendsList extends Component {
 
     handleKeyUp = () => {
         if (this.state.searchFriend.length > 2) {
-            this.props.listUser(this.state.searchFriend)
+
+            const data = {
+                username: this.state.searchFriend,
+                userId: this.user.id,
+            }
+
+            this.props.listUser(data)
             .then(res => {
                 const users = res;
                 this.setState({listSearchFriend: users});
@@ -91,7 +97,6 @@ class FriendsList extends Component {
                             <span className={style.close} onClick={this.showHideModal}><FontAwesomeIcon icon={faTimesCircle} /></span>
                             <h3>Ajouter un ami</h3>
 
-                            <form>
                                 <input 
                                     type='text'
                                     className={style.searchInput}
@@ -102,8 +107,7 @@ class FriendsList extends Component {
                                     id='searchFriend'
                                     autoComplete='off'
                                 />
-                                <button><FontAwesomeIcon icon={faSearch} /></button>
-                            </form>
+                                
                             <ul id='searchFriendList'>
                                 {this.state.listSearchFriend.map(item => (
                                     <div className={style.friendListItems} key={item._id}>

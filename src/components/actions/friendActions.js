@@ -13,9 +13,9 @@ export const addFriend = (userId, friendId) => dispatch => {
     }
 ;
 
-export const listUser = username => dispatch => {
+export const listUser = data => dispatch => {
     return axios
-      .post("/api/friends/listUser", {username: username})
+      .post("/api/friends/listUser", data)
       .then(res => { return res.data; })
       .catch(err => { return err; });
     }
