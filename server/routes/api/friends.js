@@ -19,7 +19,18 @@ router.post('/add', (req, res) => {
             }
         }
     )
-    .then(res.send('ok'))
+    .then(
+        User.updateOne(
+            { _id: user },
+            { 
+                $addToSet: {        // add friend request only if not already exist
+                   friendsRequestSend: friend
+                }
+            }
+        )
+        .then(res.send('ok'))
+        .catch(err => res.send(err))
+        )
     .catch(err => res.send(err))
     ;
 });
@@ -34,13 +45,31 @@ router.post('/listUser', (req, res) => {
 
     User.find(
         { username: { $regex: searchUser, $options: 'i' }, _id: { $ne: userId } },
-        { friends: 0, email: 0, password: 0, date: 0, __v: 0, friendsRequest: 0 }
+        { friends: 0, email: 0, password: 0, date: 0, __v: 0, friendsRequest: 0, friendsRequestSend: 0 }
+        )
+        .then(user => {
+            res.json(user);
+        })
+        .catch(err => console.log(err))
+
+});
+
+// @route POST api/friends/getUsersByIdList
+// @desc ID and return username
+// @access Public
+
+router.post('/getUsersByIdList', (req, res) => {
+    const usersTab = req.body.usersTab;
+
+    User.find(
+        { _id: { $in: usersTab }},
+        { friends: 0, email: 0, password: 0, date: 0, __v: 0, friendsRequest: 0, friendsRequestSend: 0 }
         )
         .then(user => {
             res.json(user);
         })
         .catch(err => console.log(err))
     ;
-});
+})
 
 module.exports = router;

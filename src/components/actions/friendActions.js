@@ -20,3 +20,11 @@ export const listUser = data => dispatch => {
       .catch(err => { return err; });
     }
 ;
+
+export const getUsersByIdList = data => dispatch => {
+  return axios
+    .post("/api/friends/getUsersByIdList", data)
+    .then(res => { return res.data; })
+    .catch(err => { return err; });
+  }
+;

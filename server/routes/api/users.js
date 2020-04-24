@@ -83,7 +83,10 @@ router.post("/register", (req, res) => {
                 const payload = {
                     id: user.id,
                     username: user.username,
-                    email: user.email
+                    email: user.email,
+                    friends: user.friends,
+                    friendsRequest: user.friendsRequest,
+                    friendsRequestSend: user.friendsRequestSend
                 };
 
                 // Sign token

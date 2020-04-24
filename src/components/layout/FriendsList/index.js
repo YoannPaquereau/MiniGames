@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 import style from './friendsList.module.scss'
 import { faUserFriends, faPlusCircle, faSearch, faTimesCircle, faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { addFriend, listUser } from "../../actions/friendActions"
+import { addFriend, listUser, getUsersByIdList } from "../../actions/friendActions"
 
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
+
+import Notification from './Notification/'
 
 class FriendsList extends Component {
 
@@ -64,16 +66,17 @@ class FriendsList extends Component {
                     el.removeAttribute('onClick');
                     el.classList.remove(style.addFriendIcon);
                     el.classList.add(style.successSendRequest);
-                    el.innerHTML = '✔'  ;
+                    el.innerHTML = '✔';
             })
-    } 
-    
+    }
+
     render() {
         return (
                 <div className={style.parent}>
                     <div className={style.list}  id='friendsList'>
+
                         <div className={style.friendsList}>
-                            <h3>Amis</h3>
+                            <h3><FontAwesomeIcon icon={faUserFriends} /></h3>
                             <div className={style.toolbar}>
                                 <form>
                                     <input type='text' className={style.searchInput} placeholder='Rechercher un ami' />
@@ -82,6 +85,8 @@ class FriendsList extends Component {
                                 </form>
                             </div>
                         </div>
+
+                        <Notification user={this.user} getUsersByIdList={this.props.getUsersByIdList} />
                     </div>
 
                     <label className={style.show}>
@@ -109,11 +114,18 @@ class FriendsList extends Component {
                                 />
                                 
                             <ul id='searchFriendList'>
-                                {this.state.listSearchFriend.map(item => (
+                                { this.state.listSearchFriend.length === 0 && 
+                                    <p>Pas de résultat</p>
+                                }
+
+                                { this.state.listSearchFriend.map(item => (
                                     <div className={style.friendListItems} key={item._id}>
                                         <li>
                                             <span className={style.usernameFriend}>{item.username}</span>
-                                            <span className={style.addFriendIcon} id={"addFriendIcon-" + item._id} onClick={() => this.addFriendRequest(item._id)}><FontAwesomeIcon icon={faUserPlus} /></span>
+                                            { (this.user.friendsRequestSend.indexOf(item._id) === -1)
+                                                ? <span className={style.addFriendIcon} id={"addFriendIcon-" + item._id} onClick={() => this.addFriendRequest(item._id)}><FontAwesomeIcon icon={faUserPlus} /></span>
+                                                : <span className={style.successSendRequest}>✔</span>
+                                            }
                                         </li>
                                     </div>
                                 ))}
@@ -130,6 +142,7 @@ FriendsList.propTypes = {
     addFriend: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     listUser: PropTypes.func.isRequired,
+    getUsersByIdList: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -138,5 +151,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { addFriend, listUser }
+    { addFriend, listUser, getUsersByIdList }
 )(FriendsList);
