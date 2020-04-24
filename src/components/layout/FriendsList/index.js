@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import style from './friendsList.module.scss'
-import { faUserFriends, faPlusCircle, faSearch, faTimesCircle, faUserPlus } from '@fortawesome/free-solid-svg-icons'
+import { faUserFriends, faPlusCircle, faSearch, faTimesCircle, faUserPlus, faBell } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { addFriend, listUser, getUsersByIdList } from "../../actions/friendActions"
 
@@ -70,13 +70,34 @@ class FriendsList extends Component {
             })
     }
 
+    showFriendsList = event => {
+        document.getElementById('friendsIcon').classList.add(style.selected);
+        document.getElementById('notifsIcon').classList.remove(style.selected);
+
+        document.getElementById('listFriends').style.display = 'block';
+        document.getElementById('notification').style.display = 'none';
+    }
+
+    showNotification = event => {
+        document.getElementById('friendsIcon').classList.remove(style.selected);
+        document.getElementById('notifsIcon').classList.add(style.selected);
+
+
+        document.getElementById('listFriends').style.display = 'none';
+        document.getElementById('notification').style.display = 'block';
+    }
+
     render() {
         return (
                 <div className={style.parent}>
                     <div className={style.list}  id='friendsList'>
+                        <div className={style.switchIcon}>
+                            <h3 className={[style.friendsIcon, style.selected].join(' ')} id='friendsIcon' onClick={this.showFriendsList}><FontAwesomeIcon icon={faUserFriends} /></h3>
+                            <h3 className={style.notifsIcon} id='notifsIcon' onClick={this.showNotification}><FontAwesomeIcon icon={faBell} /></h3>
+                        </div>
 
-                        <div className={style.friendsList}>
-                            <h3><FontAwesomeIcon icon={faUserFriends} /></h3>
+
+                        <div className={style.friendsList} id='listFriends'>
                             <div className={style.toolbar}>
                                 <form>
                                     <input type='text' className={style.searchInput} placeholder='Rechercher un ami' />
@@ -86,7 +107,9 @@ class FriendsList extends Component {
                             </div>
                         </div>
 
-                        <Notification user={this.user} getUsersByIdList={this.props.getUsersByIdList} />
+                        <div className={style.notification} id='notification'>
+                            <Notification user={this.user} getUsersByIdList={this.props.getUsersByIdList} />
+                        </div>
                     </div>
 
                     <label className={style.show}>

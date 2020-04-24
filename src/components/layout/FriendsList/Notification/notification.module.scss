@@ -1,4 +1,5 @@
 .notification {
+    overflow: auto;
     > ul {
         list-style: none;
 
@@ -21,11 +22,13 @@
             > .action {
 
                 > .cross {
+                    cursor: pointer;
                     margin-left: 10px;
                     color: red;
                 }
 
                 > .check {
+                    cursor: pointer;
                     color: green;
                 }
             }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { faBell, faClock, faUserPlus, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faClock, faUserPlus, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import style from './notification.module.scss'
@@ -30,7 +30,6 @@ class Notification extends Component {
     render() {
         return (
             <div className={style.notification}>
-                <h3><FontAwesomeIcon icon={faBell} /></h3>
 
                 <ul className={style.friendsRequestReceive}>
                     { this.state.friendsRequestReceive.map(item => (
