@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import style from './friendsList.module.scss'
 import { faUserFriends, faPlusCircle, faSearch, faTimesCircle, faUserPlus, faBell } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { addFriend, listUser, getUsersByIdList } from "../../actions/friendActions"
+import { addFriend, listUser, getUsersByIdList, acceptRequest } from "../../actions/friendActions"
 
 import PropTypes from "prop-types"
 import { connect } from "react-redux"
@@ -108,7 +108,7 @@ class FriendsList extends Component {
                         </div>
 
                         <div className={style.notification} id='notification'>
-                            <Notification user={this.user} getUsersByIdList={this.props.getUsersByIdList} />
+                            <Notification user={this.user} getUsersByIdList={this.props.getUsersByIdList} acceptRequest={this.props.acceptRequest } />
                         </div>
                     </div>
 
@@ -166,6 +166,7 @@ FriendsList.propTypes = {
     auth: PropTypes.object.isRequired,
     listUser: PropTypes.func.isRequired,
     getUsersByIdList: PropTypes.func.isRequired,
+    acceptRequest: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -174,5 +175,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { addFriend, listUser, getUsersByIdList }
+    { addFriend, listUser, getUsersByIdList, acceptRequest }
 )(FriendsList);

@@ -28,3 +28,11 @@ export const getUsersByIdList = data => dispatch => {
     .catch(err => { return err; });
   }
 ;
+
+export const acceptRequest = data => dispatch => {
+  return axios
+    .post("/api/friends/acceptRequest", data)
+    .then(res => { return res.data; })
+    .catch(err => { return err; });
+  }
+;
