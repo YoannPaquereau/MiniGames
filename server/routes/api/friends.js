@@ -72,4 +72,35 @@ router.post('/getUsersByIdList', (req, res) => {
     ;
 })
 
+// @route POST api/friends/acceptRequest
+// @desc IdUser & IdSendRequest and return new friendsList
+// @access Public
+
+router.post('/acceptRequest', (req, res) => {
+    const IdUser = req.body.IdUser;
+    const IdSendRequest = req.body.IdSendRequest;
+
+    User.updateOne(
+        {   _id: IdSendRequest},
+        {   $pull: { friendsRequestSend: IdUser },
+            $addToSet: {
+                friends: IdUser
+            }
+        }
+        )
+        .then(User.updateOne(
+            { _id: IdUser},
+            { $pull: { friendsRequest: IdSendRequest },
+            $addToSet: {
+                friends: IdSendRequest
+            }
+        }
+        )
+        .then(res.json(IdSendRequest))
+        .catch(err => res.send(err))
+        )
+        .catch(err => res.send(err))
+    ;
+})
+
 module.exports = router;
