@@ -8,6 +8,7 @@ import Homepage from "../../Homepage";
 import Login from "../../account/Login";
 import Register from "../../account/Register";
 import Dashboard from '../../account/Dashboard';
+import TicTacToe from '../../games/TicTacToe';
 
 
 import PropTypes from "prop-types";
@@ -45,7 +46,7 @@ class Navbar extends Component {
                 <Link to="/account" className={style.links}><FontAwesomeIcon icon={faUser} /> Mon compte</Link>
             </li>
             <li>
-                <Link to="#" className={style.links}><FontAwesomeIcon icon={faGamepad} /> Jeux</Link>
+                <Link to="/games/tictactoe" className={style.links}><FontAwesomeIcon icon={faGamepad} /> Jeux</Link>
             </li>
             <li>
                 <button className={style.links} onClick={this.logout}><FontAwesomeIcon icon={faSignOutAlt} /> Déconnexion</button>
@@ -97,6 +98,7 @@ class Navbar extends Component {
                     <Route exact path='/login' component={Login}/>
                     <Route exact path='/register' component={Register}/>
                     <Route exact path='/account' component={Dashboard}/>
+                    <Route exact path='/games/tictactoe' component={TicTacToe}/>
                 </Switch>
             </Router>
         );
