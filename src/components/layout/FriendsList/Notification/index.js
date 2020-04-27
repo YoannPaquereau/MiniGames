@@ -16,8 +16,18 @@ class Notification extends Component {
     }
 
     componentDidMount() {
-        this.getUsersByID(this.props.user.friendsRequestSend, 'friendsRequestSend');
-        this.getUsersByID(this.props.user.friendsRequest, 'friendsRequestReceive');
+        this.props.user.friendsRequestSend = this.props.user.friendsRequestSend.filter(function(e){return e}); 
+        this.props.user.friendsRequest = this.props.user.friendsRequest.filter(function(e){return e}); 
+
+        if (this.props.user.friendsRequestSend.length > 0)
+            this.getUsersByID(this.props.user.friendsRequestSend, 'friendsRequestSend');
+
+        if (this.props.user.friendsRequest.length > 0)
+            this.getUsersByID(this.props.user.friendsRequest, 'friendsRequestReceive');
+    }
+    
+    shouldComponentUpdate(nextProps, nextState) {
+        return false;
     }
 
     getUsersByID = (listUser, stateName) => {

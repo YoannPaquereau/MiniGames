@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import style from './friendsList.module.scss'
-import { faUserFriends, faPlusCircle, faSearch, faTimesCircle, faUserPlus, faBell } from '@fortawesome/free-solid-svg-icons'
+import { faUserFriends, faPlusCircle, faTimesCircle, faUserPlus, faBell } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { addFriend, listUser, getUsersByIdList, acceptRequest } from "../../actions/friendActions"
 
@@ -16,9 +16,20 @@ class FriendsList extends Component {
         this.state = {
             show: false,
             searchFriend: '',
-            listSearchFriend: []
+            listSearchFriend: [],
+            friends: []
         };
         this.user = this.props.auth.user;
+    }
+
+    componentDidMount() {
+        this.user.friends = this.user.friends.filter(function(e){return e});
+        if (this.user.friends.length > 0) {
+            this.props.getUsersByIdList({ usersTab: this.user.friends })
+                .then(user => {
+                    this.setState({ friends: user })
+            })
+        }
     }
 
     checked = event => {
@@ -99,12 +110,18 @@ class FriendsList extends Component {
 
                         <div className={style.friendsList} id='listFriends'>
                             <div className={style.toolbar}>
-                                <form>
-                                    <input type='text' className={style.searchInput} placeholder='Rechercher un ami' />
-                                    <button><FontAwesomeIcon icon={faSearch} /></button>
-                                    <span className={style.newFriend} onClick={this.showHideModal}><FontAwesomeIcon icon={faPlusCircle} /></span>
-                                </form>
+                                <span className={style.newFriend} onClick={this.showHideModal}>Ajouter un ami <FontAwesomeIcon icon={faPlusCircle} /></span>
                             </div>
+
+                            <ul className={style.friends}>
+                                { this.state.friends.map(item => (
+                                    <div className={style.friend} key={item._id}>
+                                        <li>
+                                            {item.username}
+                                        </li>
+                                    </div>
+                                ))}
+                            </ul>
                         </div>
 
                         <div className={style.notification} id='notification'>
