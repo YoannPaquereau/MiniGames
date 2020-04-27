@@ -98,7 +98,7 @@ class Navbar extends Component {
                     <Route exact path='/login' component={Login}/>
                     <Route exact path='/register' component={Register}/>
                     <Route exact path='/account' component={Dashboard}/>
-                    <Route exact path='/games/tictactoe' component={TicTacToe}/>
+                    <Route exact path='/games/tictactoe' component={() => <TicTacToe user={this.props.auth.user} />}/>
                 </Switch>
             </Router>
         );
