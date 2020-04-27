@@ -1,0 +1,154 @@
+.parent {
+    position: fixed;
+    bottom: 30px;
+    right: 20px;
+    width: 230px;
+
+    .list {
+        background-color: lightgrey;
+        display: none;
+        height: 400px;
+
+        > .notification {
+            display: none;
+        }
+
+        > .switchIcon {
+            > .friendsIcon, >.notifsIcon {
+                width: 50%;
+                text-align: center;
+                margin-bottom: 10px;
+                cursor: pointer;
+            }
+
+            > .friendsIcon {
+                float: left;
+            }
+
+            >.notifsIcon {
+                float: right;
+            }
+
+            > .selected {
+                background-color: white;
+            }
+        }
+
+        > .friendsList {
+            > h3 {
+                text-align: center;
+                padding-top: 10px;
+            }
+
+            > .toolbar {
+                > .newFriend {
+                    float: right;
+                    margin-right: 5px;
+                    cursor: pointer;
+                    clear: both;
+                }
+            }
+
+            > .friends {
+                position: absolute;
+                list-style: none;
+                top: 75px;
+                left: 10px;
+            } 
+        }
+    }
+
+    > .show {
+        display:table;
+        margin:auto;
+        margin-top: 10px;
+        
+        > input {
+            display: none;
+        }
+
+        > .icon {
+            display: table-cell;
+            border-radius: 25px;
+            background-color: lightgrey;
+            font-size: 16px;
+            height: 50px;
+            width: 50px;
+            text-align: center;
+            vertical-align: middle;
+        }
+    }
+
+    > .modal {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, .5);
+        opacity: 0;
+        visibility: hidden;
+        transform: scale(1.1);
+        transition: visibility 0s linear .25s, opacity .25s 0s, transform .25s;
+
+
+        > .modalContent {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: lightgrey;
+            padding: 1rem 1.5rem;
+            width: 24rem;
+            border-radius: .5rem;
+
+            > .close {
+                float: right;
+                width: 1.5rem;
+                line-height: 1.5rem;
+                text-align: center;
+                cursor: pointer;
+                border-radius: .25rem;
+                color: #42474d;
+    
+                &:hover {
+                    color: black;
+                }
+            }
+
+            > ul {
+                display: none;
+                list-style: none;
+                border: 1px solid black;
+                padding: 5px;
+                background-color: white;
+
+                > .friendListItems {
+                    border-bottom: 1px solid black;
+                    &:last-child {
+                        border: none;
+                    }
+                    > li {
+                        padding: 10px;
+
+                        > .addFriendIcon, > .successSendRequest {
+                            position: absolute;
+                            right: 2.5rem;
+                        }
+                        
+                        > .addFriendIcon {
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .showModal {
+        opacity: 1;
+        visibility: visible;
+        transform: scale(1.0);
+        transition: visibility 0s linear 0s, opacity .25s 0s, transform .25s;
+    }
+}

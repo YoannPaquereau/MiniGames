@@ -1,0 +1,36 @@
+.notification {
+    > ul {
+        list-style: none;
+
+        > .item {
+            margin: 10px;
+            
+            > .notifType {
+                margin-right: 10px;
+            }
+
+            > .action {
+                float: right;
+            }
+        }
+    }
+
+    > .friendsRequestReceive {
+        > .item {
+
+            > .action {
+
+                > .cross {
+                    cursor: pointer;
+                    margin-left: 10px;
+                    color: red;
+                }
+
+                > .check {
+                    cursor: pointer;
+                    color: green;
+                }
+            }
+        }
+    }
+}

@@ -83,7 +83,10 @@ router.post("/register", (req, res) => {
                 const payload = {
                     id: user.id,
                     username: user.username,
-                    email: user.email
+                    email: user.email,
+                    friends: user.friends,
+                    friendsRequest: user.friendsRequest,
+                    friendsRequestSend: user.friendsRequestSend
                 };
 
                 // Sign token
@@ -108,5 +111,23 @@ router.post("/register", (req, res) => {
         });
     });
 });
+
+
+// @route POST api/users/getUserData
+// @desc IdUser and return User Data
+// @access Public
+
+router.post('/getUserData', (req, res) => {
+    const id = req.body.id;
+
+    User.find(
+        { _id: id },
+        { password: 0, __v: 0, date: 0 }
+        )
+        .then(user => {
+            res.json(user);
+        })
+        .catch(err => console.log(err))
+})
 
 module.exports = router;

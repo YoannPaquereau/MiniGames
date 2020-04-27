@@ -64,3 +64,11 @@ export const logoutUser = () => dispatch => {
   // Set current user to empty object {} which will set isAuthenticated to false
   dispatch(setCurrentUser({}));
 };
+
+export const getUserData = id => {
+  return axios
+    .post('/api/users/getUserData', { id: id})
+    .then(res => { return res.data; })
+    .catch(err => { return err; });
+  }
+;

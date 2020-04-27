@@ -18,6 +18,21 @@ const UserSchema = new Schema({
         required: true
     },
 
+    friends: {
+        type: Array,
+        required: false
+    },
+
+    friendsRequest: {
+        type: Array,
+        required: false
+    },
+
+    friendsRequestSend: {
+        type: Array,
+        required: false
+    },
+
     date: {
         type: Date,
         default: Date.now

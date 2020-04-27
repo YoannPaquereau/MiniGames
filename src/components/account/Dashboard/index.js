@@ -8,7 +8,7 @@ class Dashboard extends Component {
     render() {
 
         const { user } = this.props.auth;
-        console.log(user);
+
         return (
             <div className={style.card}>
                 <div className={style.container}>

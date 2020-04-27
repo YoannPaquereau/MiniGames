@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 
 const users = require('./routes/api/users');
+const friends = require('./routes/api/friends');
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use(passport.initialize());
 require('./config/passport')(passport);
 
 app.use('/api/users', users);
+app.use('/api/friends', friends);
 
 const port = process.env.PORT || 5000;
 
