@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import style from './navbar.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faGamepad, faHome, faUser, faSignOutAlt, faSignInAlt, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+
 import {BrowserRouter as Router, Link, Switch, Route} from "react-router-dom";
 import Homepage from "../../Homepage";
 import Login from "../../account/Login";
