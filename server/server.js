@@ -59,21 +59,28 @@ io.sockets.on('connection', function (socket) {
         var room = io.nsps['/'].adapter.rooms[data.room];
         if (room && room.length == 1) {
             roomdata.joinRoom(socket, data.room);
-            var gameBoard = [
-                ["", "", ""],
-                ["", "", ""],
-                ["", "", ""]
-            ];
-            roomdata.set(socket, "checkbox", gameBoard);
-            roomdata.set(socket, "countTurn", 1);
-             roomdata.get(socket, 'players').player2 = data.player;
-             var turn = Math.floor(Math.random() * (3 - 1) + 1);
-             if (turn == 1)
-                turn = roomdata.get(socket, 'players').player1;
-            else
-                turn = roomdata.get(socket, 'players').player2;
+            if (data.player.id === roomdata.get(socket, 'players').player1.id) {
+                roomdata.leaveRoom(socket);
+                socket.emit('err', {message: 'Partie pleine ou indisponible'});
+            }
 
-                io.in(data.room).emit('startGame', { room: data.room, turn: turn, players: roomdata.get(socket, "players")});
+            else {
+                var gameBoard = [
+                    ["", "", ""],
+                    ["", "", ""],
+                    ["", "", ""]
+                ];
+                roomdata.set(socket, "checkbox", gameBoard);
+                roomdata.set(socket, "countTurn", 1);
+                 roomdata.get(socket, 'players').player2 = data.player;
+                 var turn = Math.floor(Math.random() * (3 - 1) + 1);
+                 if (turn == 1)
+                    turn = roomdata.get(socket, 'players').player1;
+                else
+                    turn = roomdata.get(socket, 'players').player2;
+    
+                    io.in(data.room).emit('startGame', { room: data.room, turn: turn, players: roomdata.get(socket, "players")});
+            }
         }
         else {
             socket.emit('err', {message: 'Partie pleine ou indisponible'});

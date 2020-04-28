@@ -82,6 +82,10 @@ class TicTacToe extends Component {
                 winner = data.player.username + " a gagné !";
             document.getElementById('winner').innerHTML = winner;
         }.bind(this));
+
+        this.socket.on('err', function(data) {
+            document.getElementById('err').innerHTML = data.message;
+        });
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -138,8 +142,8 @@ class TicTacToe extends Component {
 
                     <div className={style.joinForm} id='joinForm'>
                         <input type='text' placeholder='Nom de la partie' onChange={this.onChange} value={this.state.room} />
-                        <span className={style.findGameButton} onClick={this.joinGame} role='img' aria-label="sheep">🔍</span>
-                        <span className={style.err}></span>
+                        <span className={style.findGameButton} onClick={this.joinGame} role='img' aria-label="sheep">🔍</span><br />
+                        <span className={style.err} id='err'></span>
                     </div>
 
                     <div className={style.preLobby} id='preLobby'>
