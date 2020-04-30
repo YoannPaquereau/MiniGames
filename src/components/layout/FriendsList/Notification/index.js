@@ -26,9 +26,6 @@ class Notification extends Component {
             this.getUsersByID(this.props.user.friendsRequest, 'friendsRequestReceive');
     }
     
-    shouldComponentUpdate(nextProps, nextState) {
-        return false;
-    }
 
     getUsersByID = (listUser, stateName) => {
         this.props.getUsersByIdList({ usersTab: listUser })
